@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>SilentGroove 🎧</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px;
+      font-size: 2em;
+    }
+
+    .gallery {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 40px;
+      flex-wrap: wrap;
+    }
+
+    .track {
+      width: 240px;
+      height: 240px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .track:hover {
+      transform: scale(1.05);
+    }
+
+    .track img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .player-bar {
+      position: fixed;
+      bottom: 0;
+      width: 40%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #222;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+      flex-wrap: wrap;
+    }
+
+    .player-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .player-info span {
+      font-size: 1rem;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 2;
+      justify-content: flex-end;
+      min-width: 300px;
+    }
+
+    button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+
+    input[type="range"] {
+      width: 40%;
+      accent-color: #1db954;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      input[type="range"] {
+        width: 100%;
+      }
+
+      .controls {
+        justify-content: center;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>SilentGroove 🎶</h1>
+
+  <!-- Images cliquables -->
+  <div class="gallery">
+    <div class="track" onclick="playTrack('musics/1h full jazz study.mp3', '1h Full Jazz Study')">
+      <img src="images/jazz.jpg" alt="Jazz Study">
+    </div>
+    <div class="track" onclick="playTrack('musics/20 songs lakey inspired.mp3', '20 Songs - Lakey Inspired')">
+      <img src="images/lakey inspired.jpg" alt="Lakey Inspired">
+    </div>
+    <div class="track" onclick="playTrack('musics/lofi hip hop 1am.mp3', 'Lofi Hip Hop 1AM')">
+      <img src="images/lofi girl.png" alt="Lofi Hip Hop">
+    </div>
+  </div>
+
+  <!-- Lecteur audio en bas -->
+  <div class="player-bar">
+    <div class="player-info">
+      <button onclick="togglePlay()">⏯</button>
+      <span id="currentTrack">Aucune musique</span>
+    </div>
+    <div class="controls">
+      <span id="currentTime">0:00</span>
+      <input type="range" id="progress" value="0" step="1">
+      <span id="duration">0:00</span>
+    </div>
+  </div>
+
+  <!-- Audio tag -->
+  <audio id="audioPlayer"></audio>
+
+  <script>
+    const player = document.getElementById('audioPlayer');
+    const currentTrack = document.getElementById('currentTrack');
+    const progress = document.getElementById('progress');
+    const currentTime = document.getElementById('currentTime');
+    const duration = document.getElementById('duration');
+    let isPlaying = false;
+
+    function playTrack(src, name) {
+      player.src = src;
+      player.play();
+      currentTrack.textContent = name;
+      isPlaying = true;
+    }
+
+    function togglePlay() {
+      if (!player.src) return;
+      if (player.paused) {
+        player.play();
+        isPlaying = true;
+      } else {
+        player.pause();
+        isPlaying = false;
+      }
+    }
+
+    // Mise à jour de la barre de progression
+    player.addEventListener('timeupdate', () => {
+      if (!isNaN(player.duration)) {
+        progress.max = player.duration;
+        progress.value = player.currentTime;
+
+        currentTime.textContent = formatTime(player.currentTime);
+        duration.textContent = formatTime(player.duration);
+      }
+    });
+
+    // Sauter à une autre position avec la barre
+    progress.addEventListener('input', () => {
+      player.currentTime = progress.value;
+    });
+
+    function formatTime(seconds) {
+      const min = Math.floor(seconds / 60);
+      const sec = Math.floor(seconds % 60).toString().padStart(2, '0');
+      return `${min}:${sec}`;
+    }
+  </script>
+
+</body>
+</html>
