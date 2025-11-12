@@ -1,0 +1,134 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: #f4f4f4;
+    padding-bottom: 100px;
+}
+
+h1 {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 2.2em;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.gallery {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 20px 0;
+    width: 60%;
+    margin: 0 auto;
+    flex-wrap: nowrap;
+}
+
+.track {
+    width: 30%; /* 3 musiques = 100% environ avec gap */
+    height: 240px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.track:hover {
+    transform: scale(1.05);
+}
+
+.track img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.player-bar {
+    margin-top: 30px;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    max-width: 1000px; /* pour éviter qu’elle s’étende trop sur grands écrans */
+    background: #222;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 12px 12px 0 0; /* petit effet arrondi sympa */
+    box-sizing: border-box;
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.player-info span {
+    font-size: 1rem;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 2;
+    justify-content: flex-end;
+    min-width: 300px;
+}
+
+button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+input[type="range"] {
+    width: 40%;
+    accent-color: #1db954;
+    cursor: pointer;
+}
+
+@media (max-width: 900px) {
+    /* Pour les écrans plus petits : réduire la largeur */
+    .gallery, .player-bar {
+        width: 90%;
+    }
+    .gallery {
+        flex-wrap: wrap; /* passer sur plusieurs lignes si besoin */
+        justify-content: center;
+        gap: 20px;
+    }
+    .track {
+        width: 45%;
+    }
+}
+
+@media (max-width: 600px) {
+    input[type="range"] {
+        width: 100%;
+    }
+
+    .controls {
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .track {
+        width: 100%;
+    }
+}

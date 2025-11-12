@@ -3,123 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <title>SilentGroove 🎧</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background-color: #f4f4f4;
-    }
-
-    h1 {
-      text-align: center;
-      padding: 20px;
-      font-size: 2em;
-    }
-
-    .gallery {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      padding: 40px;
-      flex-wrap: wrap;
-    }
-
-    .track {
-      width: 240px;
-      height: 240px;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-
-    .track:hover {
-      transform: scale(1.05);
-    }
-
-    .track img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .player-bar {
-      position: fixed;
-      bottom: 0;
-      width: 40%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #222;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 20px;
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
-      flex-wrap: wrap;
-    }
-
-    .player-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex: 1;
-      min-width: 200px;
-    }
-
-    .player-info span {
-      font-size: 1rem;
-    }
-
-    .controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex: 2;
-      justify-content: flex-end;
-      min-width: 300px;
-    }
-
-    button {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.5em;
-      cursor: pointer;
-    }
-
-    input[type="range"] {
-      width: 40%;
-      accent-color: #1db954;
-      cursor: pointer;
-    }
-
-    @media (max-width: 600px) {
-      input[type="range"] {
-        width: 100%;
-      }
-
-      .controls {
-        justify-content: center;
-        margin-top: 10px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <h1>SilentGroove 🎶</h1>
-
-  <!-- Images cliquables -->
+  <h2 class="subtitle">Listen to unlimited music, for free 🎧</h2>
+  
   <div class="gallery">
-    <div class="track" onclick="playTrack('musics/1h full jazz study.mp3', '1h Full Jazz Study')">
+    <div class="track" data-src="musics/jazz.mp3" data-name="1h30 Full Jazz Study">
       <img src="images/jazz.jpg" alt="Jazz Study">
     </div>
-    <div class="track" onclick="playTrack('musics/20 songs lakey inspired.mp3', '20 Songs - Lakey Inspired')">
+    <div class="track" data-src="musics/lakey_inspired.mp3" data-name="33 Songs - Lakey Inspired">
       <img src="images/lakey inspired.jpg" alt="Lakey Inspired">
     </div>
-    <div class="track" onclick="playTrack('musics/lofi hip hop 1am.mp3', 'Lofi Hip Hop 1AM')">
+    <div class="track" data-src="musics/lofi_relax.mp3" data-name="2h Lofi Hip Hop Relax">
       <img src="images/lofi girl.png" alt="Lofi Hip Hop">
+    </div>
+  </div>
+  <div class="gallery">
+    <div class="track" data-src="musics/city_pop.mp3" data-name="1h City Pop">
+      <img src="images/city_pop.jpg" alt="Jazz Study">
+    </div>
+    <div class="track" data-src="musics/jungle.mp3" data-name="1h Jungle">
+      <img src="images/jungle.jpg" alt="Jungle">
+    </div>
+    <div class="track" data-src="musics/playboi_carti.mp3" data-name="100min Playboi Carti Type Beat">
+      <img src="images/playboi_carti.jpg" alt="Lofi Hip Hop">
     </div>
   </div>
 
@@ -145,7 +55,19 @@
     const progress = document.getElementById('progress');
     const currentTime = document.getElementById('currentTime');
     const duration = document.getElementById('duration');
+
     let isPlaying = false;
+
+    // Sélectionne toutes les images des tracks
+    const tracks = document.querySelectorAll('.track');
+
+    tracks.forEach(track => {
+      track.addEventListener('click', () => {
+        const src = track.dataset.src;
+        const name = track.dataset.name;
+        playTrack(src, name);
+      });
+    });
 
     function playTrack(src, name) {
       player.src = src;
@@ -156,6 +78,7 @@
 
     function togglePlay() {
       if (!player.src) return;
+
       if (player.paused) {
         player.play();
         isPlaying = true;
