@@ -100,3 +100,70 @@ input[type="range"] {
     line-height: 1.6;
     
 }
+
+/* --- Media Queries pour le responsive --- */
+@media (max-width: 1024px) {
+    .site-header, main, .player-bar {
+        width: 90%;
+    }
+    .track {
+        width: 48%;
+    }
+    input[type="range"] {
+        width: 60%;
+    }
+}
+
+@media (max-width: 768px) {
+    .site-header {
+        flex-direction: column; /* empile logo et nav */
+        align-items: center;    /* centre horizontalement */
+    }
+
+    .site-header .nav-links {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column; /* liens empilés verticalement */
+        align-items: center;    /* centre les liens */
+        gap: 10px;              /* espace entre les liens */
+    }
+
+    .site-header .nav-links a {
+        margin: 0;              /* supprime le margin-left */
+    }
+    .track {
+        width: 100%;
+    }
+    .player-bar {
+        width: 95%;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+    .controls {
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 5px;
+    }
+    input[type="range"] {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-header .logo {
+        font-size: 1.4em;
+    }
+    button {
+        font-size: 1.2em;
+    }
+    h1 {
+        font-size: 1.5em;
+    }
+    h2 {
+        font-size: 1.2em;
+    }
+    .track img {
+        height: 200px;
+    }
+}
