@@ -72,14 +72,19 @@ function playTrack(src, name) {
 const mainContent = document.getElementById('main-content');
 const tracksData = [
     {src:"musics/jazz.mp3", name:"1h30 Full Jazz Study", img:"images/jazz.jpg"},
-    {src:"musics/lakey_inspired.mp3", name:"33 Songs - Lakey Inspired", img:"images/lakey inspired.jpg"},
+    {src:"musics/lakey_inspired.mp3", name:"33 Songs Lakey Inspired", img:"images/lakey inspired.jpg"},
     {src:"musics/lofi_relax.mp3", name:"2h Lofi Hip Hop Relax", img:"images/lofi girl.png"},
     {src:"musics/city_pop.mp3", name:"1h City Pop", img:"images/city_pop.jpg"},
     {src:"musics/jungle.mp3", name:"1h Jungle", img:"images/jungle.jpg"},
-    {src:"musics/playboi_carti.mp3", name:"100min Playboi Carti Type Beat", img:"images/playboi_carti.jpg"},
+    {src:"musics/playboi_carti.mp3", name:"1h Playboi Carti Type Beat", img:"images/playboi_carti.jpg"},
     {src:"musics/spatial_ambiant.mp3", name:"1h Spatial Ambiant Music", img:"images/spatial_ambiant.jpg"},
     {src:"musics/brazil_lofi.mp3", name:"1h Brazil Lofi", img:"images/brazil_lofi.jpg"},
-    {src:"musics/cloud.mp3", name:"Cloud Lofi", img:"images/cloud.jpg"}
+    {src:"musics/cloud.mp3", name:"45min Cloud Lofi", img:"images/cloud.jpg"},
+    {src:"musics/house_zara.mp3", name:"1h Zara House", img:"images/house_zara.jpg"},
+    {src:"musics/classic_music.mp3", name:"1h Classic Music", img:"images/classic_music.jpg"},
+    {src:"musics/synthwave_retro.mp3", name:"40min Synthwave Retro", img:"images/synthwave_retro.jpg"},
+    
+
 ];
 
 function loadGallery() {
@@ -91,7 +96,12 @@ function loadGallery() {
         div.className = 'track';
         div.dataset.src = track.src;
         div.dataset.name = track.name;
-        div.innerHTML = `<img src="${track.img}" alt="${track.name}">`;
+
+        div.innerHTML = `
+            <img src="${track.img}" alt="${track.name}">
+            <div class="track-name-overlay">${track.name}</div>
+        `;
+
         div.addEventListener('click', () => playTrack(track.src, track.name));
         gallery.appendChild(div);
     });
