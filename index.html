@@ -12,6 +12,7 @@
     <div class="logo">SilentGroove 🎶</div>
     <nav class="nav-links">
         <a href="#" onclick="loadPage('home')">Library</a>
+        <button id="themeToggle" class="theme-btn">Dark Mode</button>
         <a href="#" onclick="loadPage('about')">About</a>
         <a href="#" onclick="loadPage('contact')">Contact</a>
     </nav>
@@ -19,15 +20,23 @@
 
 <main id="main-content"></main>
 
-<div class="player-bar">
+<div class="player-bar hidden">
     <div class="player-info">
-        <button id="playPauseBtn" onclick="togglePlay()">▶</button>
+    <button id="prevBtn" class="player-btn">⏮</button>
+    <button id="playPauseBtn" class="player-btn">▶</button>
+    <button id="nextBtn" class="player-btn">⏭</button>
         <span id="currentTrack">Aucune musique</span>
     </div>
+
     <div class="controls">
         <span id="currentTime">0:00</span>
         <input type="range" id="progress" value="0" step="1">
         <span id="duration">0:00</span>
+
+        <div class="volume-control">
+            <button id="muteBtn">🔊</button>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+        </div>
     </div>
 </div>
 <audio id="audioPlayer"></audio>
@@ -46,6 +55,7 @@ function togglePlay() {
     if (player.paused) player.play();
     else player.pause();
 }
+playPauseBtn.addEventListener('click', togglePlay);
 player.addEventListener('play', () => playPauseBtn.textContent = '⏸');
 player.addEventListener('pause', () => playPauseBtn.textContent = '▶');
 player.addEventListener('timeupdate', () => {
@@ -62,11 +72,58 @@ function formatTime(seconds) {
     const sec = Math.floor(seconds % 60).toString().padStart(2, '0');
     return `${min}:${sec}`;
 }
+
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const muteBtn = document.getElementById('muteBtn');
+const volumeSlider = document.getElementById('volumeSlider');
+
+let currentTrackIndex = -1;
+
+// Lecture d’une piste
 function playTrack(src, name) {
+    const index = tracksData.findIndex(t => t.src === src);
+    if (index !== -1) currentTrackIndex = index;
     player.src = src;
     player.play();
     currentTrack.textContent = name;
+
+    document.querySelector('.player-bar').classList.remove('hidden');
 }
+
+// Suivant / précédent
+nextBtn.addEventListener('click', () => {
+    if (currentTrackIndex < tracksData.length - 1) {
+        currentTrackIndex++;
+        const next = tracksData[currentTrackIndex];
+        playTrack(next.src, next.name);
+    }
+});
+
+prevBtn.addEventListener('click', () => {
+    if (currentTrackIndex > 0) {
+        currentTrackIndex--;
+        const prev = tracksData[currentTrackIndex];
+        playTrack(prev.src, prev.name);
+    }
+});
+
+// Volume et mute
+volumeSlider.addEventListener('input', () => {
+    player.volume = volumeSlider.value;
+    muteBtn.textContent = player.volume === 0 ? '🔇' : '🔊';
+});
+
+muteBtn.addEventListener('click', () => {
+    if (player.muted) {
+        player.muted = false;
+        muteBtn.textContent = '🔊';
+        volumeSlider.value = player.volume;
+    } else {
+        player.muted = true;
+        muteBtn.textContent = '🔇';
+    }
+});
 
 // ---------- SPA ----------
 const mainContent = document.getElementById('main-content');
@@ -134,6 +191,23 @@ function loadPage(page) {
             break;
     }
 }
+
+// ---------- DARK MODE ----------
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+
+// Charger le mode enregistré si dispo
+if (localStorage.getItem('theme') === 'dark') {
+    body.classList.add('dark-mode');
+    themeToggle.textContent = 'Light Mode';
+}
+
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    const isDark = body.classList.contains('dark-mode');
+    themeToggle.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+});
 
 // Load home by default
 loadPage('home');

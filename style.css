@@ -1,3 +1,4 @@
+/* --- BASE --- */
 body {
     margin: 0;
     font-family: sans-serif;
@@ -6,6 +7,8 @@ body {
     flex-direction: column;
     align-items: center;
 }
+
+/* --- HEADER --- */
 .site-header {
     width: 60%;
     display: flex;
@@ -13,24 +16,45 @@ body {
     align-items: center;
     margin: 20px 0;
 }
+
 .site-header .logo {
     font-size: 1.8em;
 }
-.site-header .nav-links a {
+
+/* Style commun pour les liens et le bouton dark mode */
+.site-header .nav-links a,
+.site-header .theme-btn {
     margin-left: 20px;
     text-decoration: none;
     color: #222;
     font-weight: bold;
+    background: none;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
 }
+
+.site-header .nav-links a:hover,
+.site-header .theme-btn:hover {
+    color: #1db954;
+    transform: scale(1.1);
+}
+
+/* --- MAIN CONTENT --- */
 main {
     width: 60%;
 }
+
 h1, h2 {
     text-align: center;
 }
+
 .subtitle {
     margin-bottom: 30px;
 }
+
+/* --- GALLERY --- */
 .gallery {
     display: flex;
     flex-wrap: wrap;
@@ -38,71 +62,24 @@ h1, h2 {
     gap: 30px 0;
     margin-bottom: 100px;
 }
+
 .track {
     width: 32%;
     cursor: pointer;
     transition: transform 0.2s ease;
+    position: relative;
 }
+
 .track:hover {
     transform: scale(1.05);
 }
+
 .track img {
     width: 100%;
     height: 240px;
     object-fit: cover;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-.player-bar {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60%;
-    background: #333;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
-    border-radius: 12px 12px 0 0;
-    flex-wrap: wrap;
-}
-.player-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex: 1;
-}
-.controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex: 2;
-    justify-content: flex-end;
-}
-button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5em;
-    cursor: pointer;
-}
-input[type="range"] {
-    width: 40%;
-    accent-color: #1db954;
-    cursor: pointer;
-}
-
-.about-text {
-    text-align: justify;
-    line-height: 1.6;
-    
-}
-
-.track {
-    position: relative; /* pour que l'overlay se place par rapport à l'image */
 }
 
 .track-name-overlay {
@@ -124,7 +101,129 @@ input[type="range"] {
     opacity: 1;
 }
 
-/* --- Media Queries pour le responsive --- */
+/* --- PLAYER BAR --- */
+.player-bar {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    flex-wrap: wrap;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+    color: #222;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    border-radius: 12px 12px 0 0;
+}
+
+.player-bar.hidden {
+    display: none;
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 2;
+    justify-content: flex-end;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* --- BUTTONS --- */
+button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.4em;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.2);
+}
+
+/* Couleur des boutons player en light mode */
+.player-btn {
+    color: #000; /* noir */
+}
+
+/* Hover optionnel */
+.player-btn:hover {
+    transform: scale(1.2);
+    color: #1db954; /* ou autre couleur si tu veux */
+}
+
+/* Dark mode reste blanc */
+body.dark-mode .player-btn {
+    color: #fff;
+}
+
+/* --- SLIDERS --- */
+input[type="range"] {
+    width: 40%;
+    accent-color: #1db954;
+    cursor: pointer;
+}
+
+#volumeSlider {
+    width: 100px;
+}
+
+/* --- TEXT --- */
+.about-text {
+    text-align: justify;
+    line-height: 1.6;
+}
+
+/* --- DARK MODE --- */
+body.dark-mode {
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+}
+
+body.dark-mode .site-header {
+    background-color: #1e1e1e;
+}
+
+body.dark-mode .nav-links a,
+body.dark-mode .theme-btn {
+    color: #f0f0f0;
+}
+
+body.dark-mode .nav-links a:hover,
+body.dark-mode .theme-btn:hover {
+    color: #1db954;
+}
+
+body.dark-mode .player-bar {
+    background : rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    color: #f5f5f5;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .gallery .track-name-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* --- RESPONSIVE --- */
 @media (max-width: 1024px) {
     .site-header, main, .player-bar {
         width: 90%;
@@ -139,35 +238,40 @@ input[type="range"] {
 
 @media (max-width: 768px) {
     .site-header {
-        flex-direction: column; /* empile logo et nav */
-        align-items: center;    /* centre horizontalement */
+        flex-direction: column;
+        align-items: center;
     }
 
     .site-header .nav-links {
         margin-top: 10px;
         display: flex;
-        flex-direction: column; /* liens empilés verticalement */
-        align-items: center;    /* centre les liens */
-        gap: 10px;              /* espace entre les liens */
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
     }
 
-    .site-header .nav-links a {
-        margin: 0;              /* supprime le margin-left */
+    .site-header .nav-links a,
+    .site-header .theme-btn {
+        margin: 0;
     }
+
     .track {
         width: 100%;
     }
+
     .player-bar {
         width: 95%;
         flex-direction: column;
         align-items: flex-start;
         padding: 10px;
     }
+
     .controls {
         width: 100%;
         justify-content: space-between;
         margin-top: 5px;
     }
+
     input[type="range"] {
         width: 100%;
     }
@@ -177,15 +281,19 @@ input[type="range"] {
     .site-header .logo {
         font-size: 1.4em;
     }
+
     button {
         font-size: 1.2em;
     }
+
     h1 {
         font-size: 1.5em;
     }
+
     h2 {
         font-size: 1.2em;
     }
+
     .track img {
         height: 200px;
     }
