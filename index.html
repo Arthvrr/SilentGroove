@@ -66,6 +66,13 @@ player.addEventListener('timeupdate', () => {
         duration.textContent = formatTime(player.duration);
     }
 });
+player.addEventListener('ended', () => {
+    // Passer à la piste suivante, ou revenir à la première si on est à la dernière
+    currentTrackIndex = (currentTrackIndex + 1) % tracksData.length;
+    const next = tracksData[currentTrackIndex];
+    playTrack(next.src, next.name);
+});
+
 progress.addEventListener('input', () => player.currentTime = progress.value);
 function formatTime(seconds) {
     const min = Math.floor(seconds / 60);
@@ -146,7 +153,9 @@ const tracksData = [
     {src:"musics/meditation.mp3", name:"1h Meditation", img:"images/meditation.jpg"},
     {src:"musics/nintendo_vibes.mp3", name:"1h Nintendo Vibes", img:"images/nintendo_vibes.jpg"},
     {src:"musics/aesthetic_study.mp3", name:"1h Aesthetic Study", img:"images/aesthetic_study.jpg"},
-
+    {src:"musics/jazz_lofi.mp3", name:"1h Jazz Lofi", img:"images/jazz_lofi.png"},
+    {src:"musics/deep_house.mp3", name:"1h Deep House", img:"images/deep_house.jpg"},
+    {src:"musics/lofi_hip_hop.mp3", name:"1h Lofi Hip Hop", img:"images/lofi_hip_hop.jpg"},
     
 
 ];
