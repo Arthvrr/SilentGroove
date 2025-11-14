@@ -223,6 +223,14 @@ body.dark-mode .gallery .track-name-overlay {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
+.player-thumb {
+    width: 45px;
+    height: 45px;
+    border-radius: 6px;
+    margin-left: 0px;
+    object-fit: cover;
+}
+
 /* --- RESPONSIVE --- */
 @media (max-width: 1024px) {
     .site-header, main, .player-bar {

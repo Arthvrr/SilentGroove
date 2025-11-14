@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SilentGroove 🎧</title>
+<title>SilentGroove</title>
 <link rel="stylesheet" href="style.css">
 <link rel="icon" href="logo/logo.ico" type="image/x-icon">
 </head>
@@ -21,10 +21,11 @@
 <main id="main-content"></main>
 
 <div class="player-bar hidden">
+    <img id="playerThumbnail" class="player-thumb" src="" alt="">
     <div class="player-info">
-    <button id="prevBtn" class="player-btn">⏮</button>
-    <button id="playPauseBtn" class="player-btn">▶</button>
-    <button id="nextBtn" class="player-btn">⏭</button>
+        <button id="prevBtn" class="player-btn">⏮</button>
+        <button id="playPauseBtn" class="player-btn">▶</button>
+        <button id="nextBtn" class="player-btn">⏭</button>
         <span id="currentTrack">Aucune musique</span>
     </div>
 
@@ -39,6 +40,33 @@
         </div>
     </div>
 </div>
+
+<!-- <div class="player-bar hidden">
+
+    <div class="player-left">
+        <img id="playerThumbnail" class="player-thumb" src="" alt="">
+        
+        <div class="player-controls">
+            <button id="prevBtn" class="player-btn">⏮</button>
+            <button id="playPauseBtn" class="player-btn">▶</button>
+            <button id="nextBtn" class="player-btn">⏭</button>
+        </div>
+
+        <span id="currentTrack"></span>
+    </div>
+
+    <div class="player-center">
+        <input type="range" id="progressBar">
+    </div>
+
+    <div class="volume-control">
+        🔊
+        <input type="range" id="volumeSlider">
+    </div>
+
+</div> -->
+
+
 <audio id="audioPlayer"></audio>
 
 <script>
@@ -91,9 +119,15 @@ let currentTrackIndex = -1;
 function playTrack(src, name) {
     const index = tracksData.findIndex(t => t.src === src);
     if (index !== -1) currentTrackIndex = index;
-    player.src = src;
+
+    const track = tracksData[currentTrackIndex];
+
+    player.src = track.src;
     player.play();
-    currentTrack.textContent = name;
+
+    currentTrack.textContent = track.name;
+
+    document.getElementById("playerThumbnail").src = track.img;
 
     document.querySelector('.player-bar').classList.remove('hidden');
 }
@@ -184,7 +218,7 @@ function loadPage(page) {
     switch(page) {
         case 'home':
             mainContent.innerHTML = `<h1>Welcome to SilentGroove 🎧</h1>
-                                     <h2 class="subtitle">Listen to unlimited music, for free 🎧</h2>
+                                     <h2 class="subtitle">Listen to unlimited music, for free !</h2>
                                      <div class="gallery" id="gallery-container"></div>`;
             loadGallery();
             break;
@@ -197,8 +231,11 @@ function loadPage(page) {
                                     `;
             break;
         case 'contact':
-            mainContent.innerHTML = `<h1>Contact Us</h1>
-                                     <p>Send us an email at: <a href="mailto:arthurlouette12@gmail.com">arthurlouette12@gmail.com</a></p>`;
+            mainContent.innerHTML = `
+                                    <h1>Contact</h1>
+                                    <p>Email : <a href="mailto:arthurlouette12@gmail.com">arthurlouette12@gmail.com</a></p>
+                                    <p>GitHub : <a href="https://github.com/Arthvrr/SilentGroove" target="_blank">View the project here</a></p>
+                                    `;
             break;
         case 'library':
             mainContent.innerHTML = `<h1>Music Library</h1>
