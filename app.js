@@ -24,7 +24,10 @@ const tracksData = [
     {src:"musics/1am_lofi.mp3", name:"1h Lofi Night Study", img:"images/1am_lofi.jpg", type:"lofi"},
     {src:"musics/homer_drive.mp3", name:"1h Chill Driving Music", img:"images/homer_drive.jpg",type:"other"},
     {src:"musics/heavenly_beats.mp3", name:"80min Heavenly Type Beats", img:"images/heavenly_beats.png",type:"beats"},
-    {src:"musics/underground_house.mp3", name:"40min Underground House", img:"images/underground_house.png",type:"house"}
+    {src:"musics/underground_house.mp3", name:"40min Underground House", img:"images/underground_house.png",type:"house"},
+    {src:"musics/us_type_beats.mp3", name:"1h US Type Beats", img:"images/us_type_beats.jpg",type:"beats"},
+    {src:"musics/ambiant_classic_jazz.mp3", name:"1h Ambiant Classic Jazz", img:"images/ambiant_classic_jazz.jpg",type:"classic"},
+
 ];
 
 // ---------- DOM REFERENCES ----------
