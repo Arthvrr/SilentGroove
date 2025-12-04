@@ -27,6 +27,9 @@ const tracksData = [
     {src:"musics/underground_house.mp3", name:"40min Underground House", img:"images/underground_house.png",type:"house"},
     {src:"musics/us_type_beats.mp3", name:"1h US Type Beats", img:"images/us_type_beats.jpg",type:"beats"},
     {src:"musics/ambiant_classic_jazz.mp3", name:"1h Ambiant Classic Jazz", img:"images/ambiant_classic_jazz.jpg",type:"classic"},
+    {src:"musics/winter_chill.mp3", name:"1h Winter Chill Beats", img:"images/winter_chill.jpg",type:"beats"},
+    {src:"musics/spongebob_relaxing.mp3", name:"1h Spongebob Relaxing Music", img:"images/spongebob_relaxing.jpg",type:"beats"},
+    {src:"musics/morning_lofi.mp3", name:"1h Morning Coffee Lofi", img:"images/morning_lofi.jpg",type:"lofi"},
 
 ];
 
