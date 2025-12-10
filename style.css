@@ -111,7 +111,7 @@ h1, h2 {
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* Empêche les éléments de passer à la ligne sur grand écran */
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(8px);
     color: #222;
@@ -124,25 +124,49 @@ h1, h2 {
     display: none;
 }
 
+/* 🎧 Section Gauche : Image, Contrôles, Titre */
 .player-info {
     display: flex;
     align-items: center;
     gap: 10px;
-    flex: 1;
+    flex-grow: 1; /* Peut grandir (important pour la distribution initiale) */
+    flex-shrink: 1; /* Peut se contracter */
+    min-width: 0; /* Permet le fonctionnement de overflow: hidden sur le titre */
+    max-width: 50%; /* Limite pour ne pas écraser la barre de progression */
 }
 
+/* 🎵 Correction du Titre pour qu'il soit sur une seule ligne et tronqué */
+#currentTrack {
+    flex-grow: 1; 
+    white-space: nowrap; /* EMPÊCHE le retour à la ligne */
+    overflow: hidden; /* COUPE le texte qui dépasse */
+    text-overflow: ellipsis; /* AJOUTE '...' au texte coupé */
+}
+
+/* ⏱️ Section Droite : Progression et Volume */
 .controls {
     display: flex;
     align-items: center;
     gap: 10px;
-    flex: 2;
-    justify-content: flex-end;
+    flex-grow: 2; /* Donne plus de priorité à l'espace pour la barre de progression */
+    flex-shrink: 1;
+    justify-content: flex-end; /* Aligne le contenu à droite */
+    min-width: 0; /* Nécessaire pour que #progress prenne la taille restante */
 }
 
+/* 🔊 Section Volume */
 .volume-control {
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-shrink: 0; /* Empêche cette section de se contracter */
+}
+
+/* ⏳ Stabilisation des indicateurs de temps */
+#currentTime, 
+#duration {
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 /* --- BUTTONS --- */
@@ -176,14 +200,24 @@ body.dark-mode .player-btn {
 }
 
 /* --- SLIDERS --- */
+
+/* Styles généraux pour les sliders */
 input[type="range"] {
-    width: 40%;
     accent-color: #1db954;
     cursor: pointer;
 }
 
+/* 🎼 Correction de la Barre de Progression pour prendre TOUTE la largeur disponible */
+#progress {
+    width: auto; /* Laisse Flexbox gérer la largeur */
+    flex-grow: 1; /* Prend tout l'espace restant dans .controls */
+    flex-shrink: 0; /* NE SE CONTRACTE PAS */
+    flex-basis: 0;
+}
+
 #volumeSlider {
     width: 100px;
+    flex-shrink: 0; /* Empêche le volume de se contracter */
 }
 
 /* --- TEXT --- */
@@ -276,9 +310,7 @@ body.dark-mode .filter-container select {
         width: 48%;
     }
 
-    input[type="range"] {
-        width: 60%;
-    }
+    /* input[type="range"] était à 60% ici, mais nous ciblons #progress et #volumeSlider individuellement maintenant */
 }
 
 @media (max-width: 768px) {
@@ -315,6 +347,14 @@ body.dark-mode .filter-container select {
         flex-direction: column;
         align-items: flex-start;
         padding: 10px;
+        flex-wrap: wrap; /* Rétablit le retour à la ligne sur mobile */
+    }
+
+    /* En mode colonne, les éléments prennent toute la largeur */
+    .player-info {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 10px;
     }
 
     .controls {
@@ -322,8 +362,16 @@ body.dark-mode .filter-container select {
         justify-content: space-between;
         margin-top: 5px;
     }
+    
+    /* En mode colonne, la barre de progression prend toute la largeur du .controls */
+    #progress {
+        width: 100%; 
+        /* flex-grow, flex-shrink, flex-basis sont gérés par width: 100% dans ce contexte */
+    }
 
-    input[type="range"] {
-        width: 100%;
+    /* Le volume peut rester fixe ou s'étendre, ici il est mieux de le laisser dans un conteneur flexible */
+    .volume-control {
+        flex-grow: 1; 
+        justify-content: flex-end;
     }
 }

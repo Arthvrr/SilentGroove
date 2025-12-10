@@ -49,10 +49,12 @@ const volumeSlider = document.getElementById('volumeSlider');
 const mainContent = document.getElementById('main-content');
 const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
+const shuffleBtn = document.getElementById('shuffleBtn');
 
 // ---------- STATE ----------
 let filteredTracks = tracksData.slice(); // tracks currently shown / navigable
 let currentFilteredIndex = -1;           // index inside filteredTracks
+let isShuffleOn = false;
 
 // ensure volume slider has a sensible default
 if (volumeSlider) {
@@ -73,6 +75,19 @@ function showPlayerBar() {
 
 function hidePlayerBar() {
     if (playerBar) playerBar.classList.add('hidden');
+}
+
+function shufflePlay() {
+    if (filteredTracks.length === 0) return;
+
+    let newIndex;
+    do {
+        // Sélectionne un index aléatoire dans les pistes filtrées
+        newIndex = Math.floor(Math.random() * filteredTracks.length);
+    } while (newIndex === currentFilteredIndex && filteredTracks.length > 1); // Assure de ne pas rejouer la même piste si possible
+
+    currentFilteredIndex = newIndex;
+    playTrack(filteredTracks[currentFilteredIndex].src);
 }
 
 // ---------- PLAY / LOAD ----------
@@ -120,8 +135,14 @@ player.addEventListener('timeupdate', () => {
 // when track ends -> advance inside filteredTracks (loop to first)
 player.addEventListener('ended', () => {
     if (filteredTracks.length === 0) return;
-    currentFilteredIndex = (currentFilteredIndex + 1) % filteredTracks.length;
-    playTrack(filteredTracks[currentFilteredIndex].src);
+    
+    // MODIFIÉ: Utilise shuffle si activé
+    if (isShuffleOn) {
+        shufflePlay();
+    } else {
+        currentFilteredIndex = (currentFilteredIndex + 1) % filteredTracks.length;
+        playTrack(filteredTracks[currentFilteredIndex].src);
+    }
 });
 
 // progress seek
@@ -132,9 +153,15 @@ progress?.addEventListener('input', (e) => {
 // ---------- NEXT / PREV using filteredTracks ----------
 nextBtn?.addEventListener('click', () => {
     if (filteredTracks.length === 0) return;
-    if (currentFilteredIndex < filteredTracks.length - 1) currentFilteredIndex++;
-    else currentFilteredIndex = 0; // wrap around
-    playTrack(filteredTracks[currentFilteredIndex].src);
+    // CORRECTION : Appliquer la logique de shuffle si elle est active
+    if (isShuffleOn) {
+        shufflePlay();
+    } else {
+        // Logique séquentielle normale
+        if (currentFilteredIndex < filteredTracks.length - 1) currentFilteredIndex++;
+        else currentFilteredIndex = 0; // wrap around
+        playTrack(filteredTracks[currentFilteredIndex].src);
+    }
 });
 
 prevBtn?.addEventListener('click', () => {
@@ -142,6 +169,26 @@ prevBtn?.addEventListener('click', () => {
     if (currentFilteredIndex > 0) currentFilteredIndex--;
     else currentFilteredIndex = filteredTracks.length - 1; // wrap around
     playTrack(filteredTracks[currentFilteredIndex].src);
+});
+
+// ---------- NOUVEAU: SHUFFLE TOGGLE ----------
+shuffleBtn?.addEventListener('click', () => {
+    isShuffleOn = !isShuffleOn;
+    
+    // Mettre à jour la classe pour le style CSS
+    if (shuffleBtn) {
+        shuffleBtn.classList.toggle('active', isShuffleOn);
+        
+        // Mettre à jour l'icône en fonction de l'état
+        if (isShuffleOn) {
+            shuffleBtn.textContent = '🔀'; // Icône Mélange (Shuffle)
+        } else {
+            shuffleBtn.textContent = '🔁'; // Icône Répétition de la playlist (Séquentiel)
+        }
+    }
+    
+    // Optionnel: feedback visuel dans la console
+    console.log(`Shuffle is now: ${isShuffleOn ? 'ON' : 'OFF'}`);
 });
 
 // ---------- VOLUME / MUTE ----------
@@ -260,4 +307,8 @@ themeToggle?.addEventListener('click', () => {
 
 // initial
 loadPage('home');
+if (shuffleBtn) {
+    shuffleBtn.textContent = isShuffleOn ? '🔀' : '🔁';
+    shuffleBtn.classList.toggle('active', isShuffleOn);
+}
 hidePlayerBar(); // hide until a track is played
