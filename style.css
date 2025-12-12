@@ -305,12 +305,13 @@ body.dark-mode .filter-container select {
     .site-header, main, .player-bar {
         width: 90%;
     }
-
-    .track {
-        width: 48%;
+    .gallery {
+        grid-template-columns: repeat(2, 1fr); /* Seulement 2 colonnes */
+    }
+    .gallery {
+        gap: 20px;
     }
 
-    /* input[type="range"] était à 60% ici, mais nous ciblons #progress et #volumeSlider individuellement maintenant */
 }
 
 @media (max-width: 768px) {
@@ -334,8 +335,8 @@ body.dark-mode .filter-container select {
     }
 
     .gallery {
-        flex-direction: column;
-        align-items: center;
+        grid-template-columns: 1fr;
+        justify-items: center;
     }
 
     .track {

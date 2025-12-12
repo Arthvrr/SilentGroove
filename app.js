@@ -309,6 +309,44 @@ themeToggle?.addEventListener('click', () => {
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
 });
 
+// GESTION DES CONTRÔLES AU CLAVIER
+document.addEventListener('keydown', (e) => {
+    // Si l'utilisateur est en train de taper dans un champ de texte (comme une future barre de recherche), on ignore.
+    if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
+        return;
+    }
+    
+    // Convertir la touche pressée en minuscule pour gérer 'm' et 'M' ou 's' et 'S' sans duplication
+    const key = e.key.toLowerCase(); 
+
+    switch (key) {
+        case ' ': // Touche Espace -> Play/Pause
+            e.preventDefault(); 
+            playPauseBtn?.click();
+            break;
+            
+        case 'arrowright': // Touche Flèche Droite -> Piste Suivante
+            e.preventDefault();
+            nextBtn?.click();
+            break;
+            
+        case 'arrowleft': // Touche Flèche Gauche -> Piste Précédente
+            e.preventDefault();
+            prevBtn?.click();
+            break;
+
+        case 'm': // Touche M -> Mute/Unmute
+            // Nous n'appelons pas preventDefault pour 'M' par défaut, 
+            // car elle n'a pas d'action de navigation par défaut comme Espace.
+            muteBtn?.click();
+            break;
+
+        case 's': // Touche S -> Shuffle On/Off
+            shuffleBtn?.click();
+            break;
+    }
+});
+
 // initial
 loadPage('home');
 if (shuffleBtn) {
