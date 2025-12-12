@@ -373,9 +373,9 @@ function updateFavicon(isDark) {
 
 // initial
 loadPage('home');
+updateFavicon(body.classList.contains('dark-mode'));
 if (shuffleBtn) {
     shuffleBtn.textContent = isShuffleOn ? '🔀' : '🔁';
     shuffleBtn.classList.toggle('active', isShuffleOn);
-    updateFavicon(body.classList.contains('dark-mode'));
 }
 hidePlayerBar(); // hide until a track is played
