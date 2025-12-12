@@ -60,6 +60,10 @@ let filteredTracks = tracksData.slice(); // tracks currently shown / navigable
 let currentFilteredIndex = -1;           // index inside filteredTracks
 let isShuffleOn = false;
 
+// NOUVEAU: Variables d'état pour le filtrage
+let currentSearchTerm = '';
+let currentFilterType = 'all';
+
 // ensure volume slider has a sensible default
 if (volumeSlider) {
     volumeSlider.value = localStorage.getItem('sg_volume') ?? 1;
@@ -140,7 +144,7 @@ player.addEventListener('timeupdate', () => {
 player.addEventListener('ended', () => {
     if (filteredTracks.length === 0) return;
     
-    // MODIFIÉ: Utilise shuffle si activé
+    // Utilise shuffle si activé
     if (isShuffleOn) {
         shufflePlay();
     } else {
@@ -157,7 +161,7 @@ progress?.addEventListener('input', (e) => {
 // ---------- NEXT / PREV using filteredTracks ----------
 nextBtn?.addEventListener('click', () => {
     if (filteredTracks.length === 0) return;
-    // CORRECTION : Appliquer la logique de shuffle si elle est active
+    // Appliquer la logique de shuffle si elle est active
     if (isShuffleOn) {
         shufflePlay();
     } else {
@@ -175,7 +179,7 @@ prevBtn?.addEventListener('click', () => {
     playTrack(filteredTracks[currentFilteredIndex].src);
 });
 
-// ---------- NOUVEAU: SHUFFLE TOGGLE ----------
+// ---------- SHUFFLE TOGGLE ----------
 shuffleBtn?.addEventListener('click', () => {
     isShuffleOn = !isShuffleOn;
     
@@ -191,7 +195,6 @@ shuffleBtn?.addEventListener('click', () => {
         }
     }
     
-    // Optionnel: feedback visuel dans la console
     console.log(`Shuffle is now: ${isShuffleOn ? 'ON' : 'OFF'}`);
 });
 
@@ -236,6 +239,42 @@ function loadGallery(tracks = filteredTracks) {
     });
 }
 
+// NOUVEAU: Fonction pour appliquer les filtres et mettre à jour la galerie
+function applyFilters() {
+    // Récupérer les valeurs actuelles des contrôles DOM
+    const musicType = document.getElementById('musicType');
+    const searchBar = document.getElementById('searchBar'); // Récupération du champ de recherche
+
+    // Si la page n'est pas 'home' (absence de musicType), on ignore l'exécution des filtres
+    if (!musicType) return; 
+
+    // Lire l'état actuel
+    const type = musicType.value;
+    // Utiliser la barre de recherche si elle existe
+    const searchTerm = (searchBar?.value || '').toLowerCase(); 
+
+    // Mettre à jour les variables d'état globales
+    currentFilterType = type;
+    currentSearchTerm = searchTerm;
+    
+    // 1. Filtrer par Type
+    let tracksByType = (type === 'all') 
+        ? tracksData.slice() 
+        : tracksData.filter(t => t.type === type);
+
+    // 2. Filtrer par Titre (Logique de recherche)
+    let finalTracks = tracksByType.filter(t => 
+        t.name.toLowerCase().includes(searchTerm)
+    );
+
+    filteredTracks = finalTracks;
+    
+    // reset current index (sinon next/prev peut pointer vers une piste non filtrée)
+    currentFilteredIndex = -1;
+    loadGallery(filteredTracks);
+}
+
+
 function loadPage(page) {
     switch(page) {
         case 'home':
@@ -243,35 +282,47 @@ function loadPage(page) {
                 <h1>Welcome to SilentGroove 🎧</h1>
                 <h2 class="subtitle">Listen to unlimited music, for free !</h2>
 
-                <div class="filter-container">
-                    <label for="musicType">Filter by type: </label>
-                    <select id="musicType">
-                        <option value="all">All</option>
-                        <option value="lofi">Lofi</option>
-                        <option value="beats">Beats</option>
-                        <option value="spacy">Spacy</option>
-                        <option value="classic">Classic</option>
-                        <option value="house">House</option>
-                        <option value="sounds">Sounds</option>
-                        <option value="other">Other</option>
-                    </select>
+                <div class="filter-controls"> <div class="filter-container">
+                        <label for="musicType">Filter by type: </label>
+                        <select id="musicType">
+                            <option value="all">All</option>
+                            <option value="lofi">Lofi</option>
+                            <option value="beats">Beats</option>
+                            <option value="spacy">Spacy</option>
+                            <option value="classic">Classic</option>
+                            <option value="house">House</option>
+                            <option value="sounds">Sounds</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="search-container">
+                        <input type="text" id="searchBar" placeholder="Search by title...">
+                    </div>
                 </div>
 
                 <div class="gallery" id="gallery-container"></div>
             `;
-            // default show all
+            
+            // Les pistes initiales seront toutes les données tant que applyFilters n'est pas appelée
             filteredTracks = tracksData.slice();
             loadGallery();
 
             // hook filter select
             const musicType = document.getElementById('musicType');
-            musicType.addEventListener('change', (e) => {
-                const type = e.target.value;
-                filteredTracks = (type === 'all') ? tracksData.slice() : tracksData.filter(t => t.type === type);
-                // reset current index (so next/prev won't accidentally point elsewhere)
-                currentFilteredIndex = -1;
-                loadGallery(filteredTracks);
-            });
+            const searchBar = document.getElementById('searchBar'); 
+            
+            // Appeler la fonction de filtrage unifiée lorsqu'un filtre ou la recherche change
+            musicType.addEventListener('change', applyFilters);
+            searchBar.addEventListener('input', applyFilters); // Écoute la saisie en temps réel
+            
+            // Rétablir l'état des filtres si on revient à la page home
+            musicType.value = currentFilterType;
+            searchBar.value = currentSearchTerm;
+            
+            // IMPORTANT : Appliquer les filtres initiaux (avec recherche/type précédemment choisis)
+            applyFilters();
+            
             break;
 
         case 'about':
@@ -322,9 +373,17 @@ themeToggle?.addEventListener('click', () => {
 
 // GESTION DES CONTRÔLES AU CLAVIER
 document.addEventListener('keydown', (e) => {
-    // Si l'utilisateur est en train de taper dans un champ de texte (comme une future barre de recherche), on ignore.
-    if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
-        return;
+    // Si l'utilisateur est en train de taper dans un champ de texte ou SELECT (pour éviter les conflits d'interface)
+    if (document.activeElement.tagName === 'INPUT' || 
+        document.activeElement.tagName === 'TEXTAREA' ||
+        document.activeElement.tagName === 'SELECT') { 
+        
+        // On permet explicitement à Espace, M et S de fonctionner même si un champ est actif, 
+        // car ce sont des commandes de lecteur, pas de saisie.
+        const key = e.key.toLowerCase();
+        if (key !== ' ' && key !== 'm' && key !== 's') {
+            return;
+        }
     }
     
     // Convertir la touche pressée en minuscule pour gérer 'm' et 'M' ou 's' et 'S' sans duplication
@@ -347,8 +406,6 @@ document.addEventListener('keydown', (e) => {
             break;
 
         case 'm': // Touche M -> Mute/Unmute
-            // Nous n'appelons pas preventDefault pour 'M' par défaut, 
-            // car elle n'a pas d'action de navigation par défaut comme Espace.
             muteBtn?.click();
             break;
 

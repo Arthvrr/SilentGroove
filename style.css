@@ -111,7 +111,7 @@ h1, h2 {
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
-    flex-wrap: nowrap; /* Empêche les éléments de passer à la ligne sur grand écran */
+    flex-wrap: nowrap;
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(8px);
     color: #222;
@@ -129,18 +129,18 @@ h1, h2 {
     display: flex;
     align-items: center;
     gap: 10px;
-    flex-grow: 1; /* Peut grandir (important pour la distribution initiale) */
-    flex-shrink: 1; /* Peut se contracter */
-    min-width: 0; /* Permet le fonctionnement de overflow: hidden sur le titre */
-    max-width: 50%; /* Limite pour ne pas écraser la barre de progression */
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+    max-width: 50%;
 }
 
 /* 🎵 Correction du Titre pour qu'il soit sur une seule ligne et tronqué */
 #currentTrack {
-    flex-grow: 1; 
-    white-space: nowrap; /* EMPÊCHE le retour à la ligne */
-    overflow: hidden; /* COUPE le texte qui dépasse */
-    text-overflow: ellipsis; /* AJOUTE '...' au texte coupé */
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* ⏱️ Section Droite : Progression et Volume */
@@ -148,10 +148,10 @@ h1, h2 {
     display: flex;
     align-items: center;
     gap: 10px;
-    flex-grow: 2; /* Donne plus de priorité à l'espace pour la barre de progression */
+    flex-grow: 2;
     flex-shrink: 1;
-    justify-content: flex-end; /* Aligne le contenu à droite */
-    min-width: 0; /* Nécessaire pour que #progress prenne la taille restante */
+    justify-content: flex-end;
+    min-width: 0;
 }
 
 /* 🔊 Section Volume */
@@ -159,7 +159,7 @@ h1, h2 {
     display: flex;
     align-items: center;
     gap: 8px;
-    flex-shrink: 0; /* Empêche cette section de se contracter */
+    flex-shrink: 0;
 }
 
 /* ⏳ Stabilisation des indicateurs de temps */
@@ -185,13 +185,13 @@ button:hover {
 
 /* Couleur des boutons player en light mode */
 .player-btn {
-    color: #000; /* noir */
+    color: #000;
 }
 
 /* Hover optionnel */
 .player-btn:hover {
     transform: scale(1.2);
-    color: #1db954; /* ou autre couleur si tu veux */
+    color: #1db954;
 }
 
 /* Dark mode reste blanc */
@@ -209,21 +209,74 @@ input[type="range"] {
 
 /* 🎼 Correction de la Barre de Progression pour prendre TOUTE la largeur disponible */
 #progress {
-    width: auto; /* Laisse Flexbox gérer la largeur */
-    flex-grow: 1; /* Prend tout l'espace restant dans .controls */
-    flex-shrink: 0; /* NE SE CONTRACTE PAS */
+    width: auto;
+    flex-grow: 1;
+    flex-shrink: 0;
     flex-basis: 0;
 }
 
 #volumeSlider {
     width: 100px;
-    flex-shrink: 0; /* Empêche le volume de se contracter */
+    flex-shrink: 0;
 }
 
 /* --- TEXT --- */
 .about-text {
     text-align: justify;
     line-height: 1.6;
+}
+
+/* --- FILTRE ET RECHERCHE (AMÉLIORÉ) --- */
+
+/* Conteneur principal englobant les deux blocs (Filtre Type et Barre Recherche) */
+.filter-controls {
+    display: flex;
+    flex-direction: column; /* Empile les éléments verticalement */
+    align-items: center; /* Centrer l'ensemble du contenu horizontalement */
+    gap: 15px; /* Espace vertical entre le filtre et la barre de recherche */
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+/* Conteneur du filtre de type (ajustement de l'ancien style) */
+.filter-container {
+    text-align: center;
+    margin-bottom: 0;
+    font-size: 1em;
+}
+
+/* Conteneur de la barre de recherche (pour la largeur maximale) */
+.search-container {
+    width: 100%;
+    max-width: 400px; /* Largeur maximale pour un look desktop propre */
+}
+
+/* Style de l'input de recherche */
+.search-container input#searchBar {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 1em;
+    border-radius: 20px; /* Bords arrondis */
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+/* Effet de focus */
+.search-container input#searchBar:focus {
+    border-color: #1db954;
+    outline: none;
+    box-shadow: 0 0 8px rgba(29, 185, 84, 0.4);
+}
+
+/* Styles pour le Select/Filtre */
+.filter-container select {
+    padding: 5px 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
 }
 
 /* --- DARK MODE --- */
@@ -280,19 +333,6 @@ body.dark-mode .gallery .track-name-overlay {
     color: inherit;
 }
 
-.filter-container {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1em;
-}
-
-.filter-container select {
-    padding: 5px 10px;
-    font-size: 1em;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-}
 
 body.dark-mode .filter-container select {
     background-color: #333;
@@ -300,18 +340,31 @@ body.dark-mode .filter-container select {
     border: 1px solid #555;
 }
 
+/* Style Dark Mode pour la barre de recherche */
+body.dark-mode .search-container input#searchBar {
+    background-color: #333;
+    color: #f0f0f0;
+    border-color: #555;
+}
+
+/* Focus Dark Mode */
+body.dark-mode .search-container input#searchBar:focus {
+    border-color: #1db954;
+    box-shadow: 0 0 8px rgba(29, 185, 84, 0.6);
+}
+
+
+/* --- MEDIA QUERIES --- */
 
 @media (max-width: 1024px) {
     .site-header, main, .player-bar {
         width: 90%;
     }
+    /* Passage à 2 colonnes pour les écrans intermédiaires */
     .gallery {
-        grid-template-columns: repeat(2, 1fr); /* Seulement 2 colonnes */
-    }
-    .gallery {
+        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
-
 }
 
 @media (max-width: 768px) {
@@ -334,6 +387,7 @@ body.dark-mode .filter-container select {
         font-size: 1.1em;
     }
 
+    /* Grille en 1 colonne centrée sur mobile */
     .gallery {
         grid-template-columns: 1fr;
         justify-items: center;
@@ -348,7 +402,7 @@ body.dark-mode .filter-container select {
         flex-direction: column;
         align-items: flex-start;
         padding: 10px;
-        flex-wrap: wrap; /* Rétablit le retour à la ligne sur mobile */
+        flex-wrap: wrap;
     }
 
     /* En mode colonne, les éléments prennent toute la largeur */
@@ -364,15 +418,18 @@ body.dark-mode .filter-container select {
         margin-top: 5px;
     }
     
-    /* En mode colonne, la barre de progression prend toute la largeur du .controls */
     #progress {
         width: 100%; 
-        /* flex-grow, flex-shrink, flex-basis sont gérés par width: 100% dans ce contexte */
     }
 
-    /* Le volume peut rester fixe ou s'étendre, ici il est mieux de le laisser dans un conteneur flexible */
     .volume-control {
         flex-grow: 1; 
         justify-content: flex-end;
+    }
+
+    /* Ajustement de la recherche sur mobile (prend toute la largeur) */
+    .search-container {
+        width: 100%;
+        max-width: none;
     }
 }
