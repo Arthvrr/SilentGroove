@@ -4,11 +4,11 @@ const tracksData = [
     {src:"musics/lakey_inspired.mp3", name:"33 Songs Lakey Inspired", img:"images/lakey inspired.jpg", type:"lofi"},
     {src:"musics/lofi_relax.mp3", name:"2h Lofi Hip Hop Relax", img:"images/lofi girl.png", type:"lofi"},
     {src:"musics/city_pop.mp3", name:"1h City Pop", img:"images/city_pop.jpg",type:"other"},
-    {src:"musics/jungle.mp3", name:"1h Jungle", img:"images/jungle.jpg",type:"other"},
+    {src:"musics/jungle.mp3", name:"1h Jungle", img:"images/jungle.jpg",type:"spacy"},
     {src:"musics/playboi_carti.mp3", name:"1h Playboi Carti Type Beat", img:"images/playboi_carti.jpg",type:"beats"},
-    {src:"musics/spatial_ambiant.mp3", name:"1h Spatial Ambiant Music", img:"images/spatial_ambiant.jpg",type:"other"},
+    {src:"musics/spatial_ambiant.mp3", name:"1h Spatial Ambiant Music", img:"images/spatial_ambiant.jpg",type:"spacy"},
     {src:"musics/brazil_lofi.mp3", name:"1h Brazil Lofi", img:"images/brazil_lofi.jpg", type:"lofi"},
-    {src:"musics/cloud.mp3", name:"45min Cloud Lofi", img:"images/cloud.jpg",type:"lofi"},
+    {src:"musics/cloud.mp3", name:"45min Cloud Lofi", img:"images/cloud.jpg",type:"spacy"},
     {src:"musics/house_zara.mp3", name:"1h Zara House", img:"images/house_zara.jpg",type:"house"},
     {src:"musics/classic_music.mp3", name:"1h Classic Music", img:"images/classic_music.jpg", type:"classic"},
     {src:"musics/synthwave_retro.mp3", name:"40min Synthwave Retro", img:"images/synthwave_retro.jpg",type:"other"},
@@ -30,6 +30,9 @@ const tracksData = [
     {src:"musics/winter_chill.mp3", name:"1h Winter Chill Beats", img:"images/winter_chill.jpg",type:"beats"},
     {src:"musics/spongebob_relaxing.mp3", name:"1h Spongebob Relaxing Music", img:"images/spongebob_relaxing.jpg",type:"beats"},
     {src:"musics/morning_lofi.mp3", name:"1h Morning Coffee Lofi", img:"images/morning_lofi.jpg",type:"lofi"},
+    {src:"musics/scenic_drive.mp3", name:"1h Scenic Drive Beats", img:"images/scenic_drive.jpg",type:"beats"},
+    {src:"musics/atmospheric_jungle.mp3", name:"1h Atmospheric Jungle", img:"images/atmospheric_jungle.jpg",type:"spacy"},
+    {src:"musics/space_jazz.mp3", name:"1h Space Jazz Beats", img:"images/space_jazz.jpg",type:"beats"},
 
 ];
 
@@ -245,6 +248,7 @@ function loadPage(page) {
                         <option value="all">All</option>
                         <option value="lofi">Lofi</option>
                         <option value="beats">Beats</option>
+                        <option value="spacy">Spacy</option>
                         <option value="classic">Classic</option>
                         <option value="house">House</option>
                         <option value="sounds">Sounds</option>
