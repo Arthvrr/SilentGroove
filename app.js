@@ -53,6 +53,7 @@ const mainContent = document.getElementById('main-content');
 const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
 const shuffleBtn = document.getElementById('shuffleBtn');
+const faviconLink = document.querySelector('link[rel="icon"]');
 
 // ---------- STATE ----------
 let filteredTracks = tracksData.slice(); // tracks currently shown / navigable
@@ -278,6 +279,15 @@ function loadPage(page) {
                 <h1>About SilentGroove 🎧</h1>
                 <p class="about-text">All the music on SilentGroove comes from royalty-free YouTube videos, carefully selected to provide you with relaxing, fun, and high-quality tracks.</p>
                 <p class="about-text">Enjoy unlimited music without ever paying a dime and without any ads interrupting your flow. Discover your favorite tunes and let the beats carry you!</p>
+                <h2>Keyboard Commands</h2>
+                <p class="about-text">You can control playback directly with your keyboard (ensure the browser window is active):</p>
+                <ul>
+                    <li><b>Spacebar</b> : Pause or resume playback.</li>
+                    <li><b>Right Arrow (→)</b> : Skip to the next track.</li>
+                    <li><b>Left Arrow (←)</b> : Go back to the previous track.</li>
+                    <li><b>M Key</b> : Toggle the sound (Mute/Unmute).</li>
+                    <li><b>S Key</b> : Toggle shuffle mode (Shuffle On/Off).</li>
+                </ul>
             `;
             break;
 
@@ -307,6 +317,7 @@ themeToggle?.addEventListener('click', () => {
     const isDark = body.classList.contains('dark-mode');
     if (themeToggle) themeToggle.textContent = isDark ? 'Light Mode' : 'Dark Mode';
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    updateFavicon(isDark);
 });
 
 // GESTION DES CONTRÔLES AU CLAVIER
@@ -347,10 +358,24 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+function updateFavicon(isDark) {
+    if (faviconLink) {
+        // Si isDark est true, on utilise l'icône blanche (pour le fond sombre)
+        if (isDark) {
+            faviconLink.href = 'logo/icon_white.png';
+        } 
+        // Sinon (mode clair), on utilise l'icône noire (pour le fond clair)
+        else {
+            faviconLink.href = 'logo/icon_black.png';
+        }
+    }
+}
+
 // initial
 loadPage('home');
 if (shuffleBtn) {
     shuffleBtn.textContent = isShuffleOn ? '🔀' : '🔁';
     shuffleBtn.classList.toggle('active', isShuffleOn);
+    updateFavicon(body.classList.contains('dark-mode'));
 }
 hidePlayerBar(); // hide until a track is played
