@@ -419,11 +419,11 @@ function updateFavicon(isDark) {
     if (faviconLink) {
         // Si isDark est true, on utilise l'icône blanche (pour le fond sombre)
         if (isDark) {
-            faviconLink.href = 'logo/icon_white.png';
+            faviconLink.href = 'logo/icon_white.ico';
         } 
         // Sinon (mode clair), on utilise l'icône noire (pour le fond clair)
         else {
-            faviconLink.href = 'logo/icon_black.png';
+            faviconLink.href = 'logo/icon_black.ico';
         }
     }
 }

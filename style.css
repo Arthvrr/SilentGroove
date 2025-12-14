@@ -356,6 +356,12 @@ body.dark-mode .search-container input#searchBar:focus {
 
 /* --- MEDIA QUERIES --- */
 
+@media (min-width:1920px){
+        .site-header, main, .player-bar {
+        width: 40%;
+    }
+}
+
 @media (max-width: 1024px) {
     .site-header, main, .player-bar {
         width: 90%;
