@@ -100,7 +100,7 @@ h1, h2 {
     opacity: 1;
 }
 
-/* --- PLAYER BAR --- */
+/* --- PLAYER BAR (GLOBAL / DESKTOP) --- */
 .player-bar {
     position: fixed;
     bottom: 0;
@@ -118,32 +118,33 @@ h1, h2 {
     box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
     border-radius: 12px 12px 0 0;
     box-sizing: border-box;
+    gap: 15px;
 }
 
 .player-bar.hidden {
     display: none;
 }
 
-/* 🎧 Section Gauche : Image, Contrôles, Titre */
+/* Section Gauche : Image, Contrôles, Titre */
 .player-info {
     display: flex;
     align-items: center;
     gap: 10px;
     flex-grow: 1;
     flex-shrink: 1;
-    min-width: 0;
-    max-width: 50%;
+    min-width: 0; 
 }
 
-/* 🎵 Correction du Titre pour qu'il soit sur une seule ligne et tronqué */
+/* Titre */
 #currentTrack {
     flex-grow: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 250px; 
 }
 
-/* ⏱️ Section Droite : Progression et Volume */
+/* Section Droite : Progression et Volume */
 .controls {
     display: flex;
     align-items: center;
@@ -154,15 +155,15 @@ h1, h2 {
     min-width: 0;
 }
 
-/* 🔊 Section Volume */
+/* Section Volume */
 .volume-control {
     display: flex;
     align-items: center;
     gap: 8px;
-    flex-shrink: 0;
+    flex-shrink: 0; 
 }
 
-/* ⏳ Stabilisation des indicateurs de temps */
+/* Indicateurs de temps */
 #currentTime, 
 #duration {
     flex-shrink: 0;
@@ -183,36 +184,31 @@ button:hover {
     transform: scale(1.2);
 }
 
-/* Couleur des boutons player en light mode */
 .player-btn {
     color: #000;
 }
 
-/* Hover optionnel */
 .player-btn:hover {
     transform: scale(1.2);
     color: #1db954;
 }
 
-/* Dark mode reste blanc */
 body.dark-mode .player-btn {
     color: #fff;
 }
 
 /* --- SLIDERS --- */
-
-/* Styles généraux pour les sliders */
 input[type="range"] {
     accent-color: #1db954;
     cursor: pointer;
 }
 
-/* 🎼 Correction de la Barre de Progression pour prendre TOUTE la largeur disponible */
 #progress {
     width: auto;
     flex-grow: 1;
-    flex-shrink: 0;
+    flex-shrink: 1; 
     flex-basis: 0;
+    min-width: 100px; 
 }
 
 #volumeSlider {
@@ -226,48 +222,20 @@ input[type="range"] {
     line-height: 1.6;
 }
 
-/* --- FILTRE ET RECHERCHE (AMÉLIORÉ) --- */
-
-/* Conteneur principal englobant les deux blocs (Filtre Type et Barre Recherche) */
+/* --- FILTRE ET RECHERCHE --- */
 .filter-controls {
     display: flex;
-    flex-direction: column; /* Empile les éléments verticalement */
-    align-items: center; /* Centrer l'ensemble du contenu horizontalement */
-    gap: 15px; /* Espace vertical entre le filtre et la barre de recherche */
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
     margin-bottom: 30px;
     width: 100%;
 }
 
-/* Conteneur du filtre de type (ajustement de l'ancien style) */
 .filter-container {
     text-align: center;
     margin-bottom: 0;
     font-size: 1em;
-}
-
-/* Conteneur de la barre de recherche (pour la largeur maximale) */
-.search-container {
-    width: 100%;
-    max-width: 400px; /* Largeur maximale pour un look desktop propre */
-}
-
-/* Style de l'input de recherche */
-.search-container input#searchBar {
-    width: 100%;
-    padding: 10px 15px;
-    font-size: 1em;
-    border-radius: 20px; /* Bords arrondis */
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-}
-
-/* Effet de focus */
-.search-container input#searchBar:focus {
-    border-color: #1db954;
-    outline: none;
-    box-shadow: 0 0 8px rgba(29, 185, 84, 0.4);
 }
 
 /* Styles pour le Select/Filtre */
@@ -277,7 +245,44 @@ input[type="range"] {
     border-radius: 5px;
     border: 1px solid #ccc;
     cursor: pointer;
+    background-color: #fff; /* Fond blanc par défaut */
 }
+
+/* Conteneur de la recherche */
+.search-container {
+    width: 100%;
+    max-width: 400px;
+    position: relative; /* Pour positionner d'éventuels icônes plus tard si besoin */
+}
+
+/* --- NOUVEAU STYLE : BARRE DE RECHERCHE MINIMALISTE --- */
+.search-container input#searchBar {
+    width: 100%;
+    padding: 10px 5px; /* Un peu de padding vertical, moins sur les côtés */
+    font-size: 1.1em; /* Texte un peu plus grand */
+    background: transparent; /* Fond transparent */
+    border: none; /* On retire toutes les bordures */
+    border-bottom: 2px solid #ccc; /* Sauf celle du bas */
+    border-radius: 0; /* Pas d'arrondi */
+    box-shadow: none; /* Pas d'ombre */
+    box-sizing: border-box;
+    transition: border-color 0.3s ease; /* Transition douce pour la couleur */
+    color: #222; /* Couleur du texte */
+    text-align: center; /* (Optionnel) Centre le texte et le curseur, retirez si vous préférez à gauche */
+}
+
+/* Effet au focus (quand on clique dessus) */
+.search-container input#searchBar:focus {
+    outline: none; /* Pas de contour bleu par défaut */
+    border-bottom-color: #1db954; /* La ligne devient verte */
+}
+
+/* Style du placeholder (texte "Search by title...") */
+.search-container input#searchBar::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
 
 /* --- DARK MODE --- */
 body.dark-mode {
@@ -333,67 +338,95 @@ body.dark-mode .gallery .track-name-overlay {
     color: inherit;
 }
 
-
 body.dark-mode .filter-container select {
     background-color: #333;
     color: #f0f0f0;
     border: 1px solid #555;
 }
 
-/* Style Dark Mode pour la barre de recherche */
+/* Style Dark Mode pour la barre de recherche Minimaliste */
 body.dark-mode .search-container input#searchBar {
-    background-color: #333;
-    color: #f0f0f0;
-    border-color: #555;
+    background: transparent;
+    color: #f0f0f0; /* Texte blanc */
+    border-bottom-color: #555; /* Ligne grise foncée au repos */
 }
 
-/* Focus Dark Mode */
 body.dark-mode .search-container input#searchBar:focus {
-    border-color: #1db954;
-    box-shadow: 0 0 8px rgba(29, 185, 84, 0.6);
+    border-bottom-color: #1db954; /* Ligne verte au focus */
 }
-
 
 /* --- MEDIA QUERIES --- */
 
+/* Très grands écrans */
 @media (min-width:1920px){
         .site-header, main, .player-bar {
         width: 40%;
     }
 }
 
+/* Écrans intermédiaires */
 @media (max-width: 1024px) {
     .site-header, main, .player-bar {
         width: 90%;
     }
-    /* Passage à 2 colonnes pour les écrans intermédiaires */
+    
     .gallery {
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
+
+    #currentTrack {
+        max-width: 120px;
+        font-size: 0.95em;
+    }
+    
+    #volumeSlider {
+        width: 70px;
+    }
+    
+    .player-info, .controls {
+        gap: 5px;
+    }
 }
 
-@media (max-width: 768px) {
+/* Mobiles */
+@media (max-width: 600px) {
+    /* --- HEADER & NAVIGATION --- */
     .site-header {
         flex-direction: column;
         align-items: center;
     }
 
+    .site-header .logo {
+        cursor: pointer;
+        user-select: none;
+        margin-bottom: 10px;
+    }
+
     .site-header .nav-links {
-        margin-top: 12px;
-        display: flex;
+        display: none;
+        width: 100%;
         flex-direction: column; 
         align-items: center;     
-        gap: 10px;
+        gap: 15px;
+        margin-top: 10px;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .site-header .nav-links.show-nav {
+        display: flex;
     }
 
     .site-header .nav-links a,
     .site-header .theme-btn {
         margin: 0;             
         font-size: 1.1em;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
     }
 
-    /* Grille en 1 colonne centrée sur mobile */
+    /* --- GALERIE --- */
     .gallery {
         grid-template-columns: 1fr;
         justify-items: center;
@@ -403,37 +436,75 @@ body.dark-mode .search-container input#searchBar:focus {
         width: 100%;
     }
 
+    /* --- BARRE DE LECTURE MOBILE --- */
     .player-bar {
-        width: 95%;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px;
-        flex-wrap: wrap;
+        width: 90%; 
+        flex-direction: row; 
+        flex-wrap: nowrap;
+        align-items: center;
+        padding: 5px; 
+        gap: 5px; 
     }
 
-    /* En mode colonne, les éléments prennent toute la largeur */
     .player-info {
-        width: 100%;
-        max-width: 100%;
-        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        flex-grow: 1; 
+        flex-shrink: 1;
+        min-width: 0;
+        margin-right: 5px; 
+        gap: 2px;
+    }
+
+    .player-thumb {
+        width: 35px; 
+        height: 35px;
+        flex-shrink: 0;
+    }
+
+    .player-btn, #shuffleBtn {
+        font-size: 1.1em;
+        flex-shrink: 0;
+        margin: 0 2px;
+        padding: 0;
+    }
+
+    #currentTrack {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; 
+        font-size: 0.85em;
+        margin-left: 5px;
+        max-width: 80px;
     }
 
     .controls {
-        width: 100%;
-        justify-content: space-between;
-        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        flex-grow: 2;
+        flex-shrink: 0; 
+        width: auto;
+        gap: 5px;
+        justify-content: flex-end;
+        margin-top: 0;
     }
-    
+
+    .volume-control, #muteBtn {
+        display: none !important; 
+    }
+
+    #currentTime, #duration {
+        font-size: 0.75em;
+        flex-shrink: 0;
+    }
+
     #progress {
         width: 100%; 
+        min-width: 50px;
+        flex-shrink: 1; 
+        margin: 0;
     }
-
-    .volume-control {
-        flex-grow: 1; 
-        justify-content: flex-end;
-    }
-
-    /* Ajustement de la recherche sur mobile (prend toute la largeur) */
+    
     .search-container {
         width: 100%;
         max-width: none;

@@ -53,7 +53,6 @@ const mainContent = document.getElementById('main-content');
 const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
 const shuffleBtn = document.getElementById('shuffleBtn');
-const faviconLink = document.querySelector('link[rel="icon"]');
 
 // ---------- STATE ----------
 let filteredTracks = tracksData.slice(); // tracks currently shown / navigable
@@ -368,7 +367,6 @@ themeToggle?.addEventListener('click', () => {
     const isDark = body.classList.contains('dark-mode');
     if (themeToggle) themeToggle.textContent = isDark ? 'Light Mode' : 'Dark Mode';
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    updateFavicon(isDark);
 });
 
 // GESTION DES CONTRÔLES AU CLAVIER
@@ -415,22 +413,29 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-function updateFavicon(isDark) {
-    if (faviconLink) {
-        // Si isDark est true, on utilise l'icône blanche (pour le fond sombre)
-        if (isDark) {
-            faviconLink.href = 'logo/icon_white.ico';
-        } 
-        // Sinon (mode clair), on utilise l'icône noire (pour le fond clair)
-        else {
-            faviconLink.href = 'logo/icon_black.ico';
+
+
+const logoElement = document.querySelector('.logo');
+const navLinksContainer = document.querySelector('.nav-links');
+
+if (logoElement && navLinksContainer) {
+    logoElement.addEventListener('click', () => {
+        if (window.innerWidth <= 600) {
+            navLinksContainer.classList.toggle('show-nav');
         }
-    }
+    });
 }
+const navItems = document.querySelectorAll('.nav-links a');
+navItems.forEach(item => {
+    item.addEventListener('click', () => {
+        if (window.innerWidth <= 600) {
+            navLinksContainer.classList.remove('show-nav');
+        }
+    });
+});
 
 // initial
 loadPage('home');
-updateFavicon(body.classList.contains('dark-mode'));
 if (shuffleBtn) {
     shuffleBtn.textContent = isShuffleOn ? '🔀' : '🔁';
     shuffleBtn.classList.toggle('active', isShuffleOn);
