@@ -1,39 +1,43 @@
-// ---------- DATA ----------
 const tracksData = [
     {src:"musics/jazz.mp3", name:"1h30 Full Jazz Study", img:"images/jazz.jpg", type:"classic"},
     {src:"musics/lakey_inspired.mp3", name:"33 Songs Lakey Inspired", img:"images/lakey inspired.jpg", type:"lofi"},
     {src:"musics/lofi_relax.mp3", name:"2h Lofi Hip Hop Relax", img:"images/lofi girl.png", type:"lofi"},
-    {src:"musics/city_pop.mp3", name:"1h City Pop", img:"images/city_pop.jpg",type:"other"},
-    {src:"musics/jungle.mp3", name:"1h Jungle", img:"images/jungle.jpg",type:"spacy"},
-    {src:"musics/playboi_carti.mp3", name:"1h Playboi Carti Type Beat", img:"images/playboi_carti.jpg",type:"beats"},
-    {src:"musics/spatial_ambiant.mp3", name:"1h Spatial Ambiant Music", img:"images/spatial_ambiant.jpg",type:"spacy"},
+    {src:"musics/city_pop.mp3", name:"1h City Pop", img:"images/city_pop.jpg",type:"upbeat"},
+    {src:"musics/jungle.mp3", name:"1h Jungle", img:"images/jungle.jpg",type:"upbeat"},
+    {src:"musics/playboi_carti.mp3", name:"1h Playboi Carti Type Beat", img:"images/playboi_carti.jpg",type:"urban"},
+    {src:"musics/spatial_ambiant.mp3", name:"1h Spatial Ambiant Music", img:"images/spatial_ambiant.jpg",type:"ambient"},
     {src:"musics/brazil_lofi.mp3", name:"1h Brazil Lofi", img:"images/brazil_lofi.jpg", type:"lofi"},
-    {src:"musics/cloud.mp3", name:"45min Cloud Lofi", img:"images/cloud.jpg",type:"spacy"},
-    {src:"musics/house_zara.mp3", name:"1h Zara House", img:"images/house_zara.jpg",type:"house"},
+    {src:"musics/cloud.mp3", name:"45min Cloud Lofi", img:"images/cloud.jpg",type:"lofi"},
+    {src:"musics/house_zara.mp3", name:"1h Zara House", img:"images/house_zara.jpg",type:"upbeat"},
     {src:"musics/classic_music.mp3", name:"1h Classic Music", img:"images/classic_music.jpg", type:"classic"},
-    {src:"musics/synthwave_retro.mp3", name:"40min Synthwave Retro", img:"images/synthwave_retro.jpg",type:"other"},
-    {src:"musics/wood_fire.mp3", name:"1h Wood Fire", img:"images/wood_fire.jpg",type:"sounds"},
-    {src:"musics/rain.mp3", name:"1h Rain", img:"images/rain.jpg",type:"sounds"},
-    {src:"musics/waves.mp3", name:"1h Waves", img:"images/waves.jpg",type:"sounds"},
-    {src:"musics/meditation.mp3", name:"1h Meditation", img:"images/meditation.jpg",type:"other"},
-    {src:"musics/nintendo_vibes.mp3", name:"1h Nintendo Vibes", img:"images/nintendo_vibes.jpg",type:"other"},
-    {src:"musics/aesthetic_study.mp3", name:"1h Aesthetic Study", img:"images/aesthetic_study.jpg", type:"other"},
+    {src:"musics/synthwave_retro.mp3", name:"40min Synthwave Retro", img:"images/synthwave_retro.jpg",type:"upbeat"},
+    {src:"musics/wood_fire.mp3", name:"1h Wood Fire", img:"images/wood_fire.jpg",type:"ambient"},
+    {src:"musics/rain.mp3", name:"1h Rain", img:"images/rain.jpg",type:"ambient"},
+    {src:"musics/waves.mp3", name:"1h Waves", img:"images/waves.jpg",type:"ambient"},
+    {src:"musics/meditation.mp3", name:"1h Meditation", img:"images/meditation.jpg",type:"ambient"},
+    {src:"musics/nintendo_vibes.mp3", name:"1h Nintendo Vibes", img:"images/nintendo_vibes.jpg",type:"lofi"},
+    {src:"musics/aesthetic_study.mp3", name:"1h Aesthetic Study", img:"images/aesthetic_study.jpg", type:"lofi"},
     {src:"musics/jazz_lofi.mp3", name:"1h Jazz Lofi", img:"images/jazz_lofi.png", type:"lofi"},
-    {src:"musics/deep_house.mp3", name:"1h Deep House", img:"images/deep_house.jpg",type:"house"},
+    {src:"musics/deep_house.mp3", name:"1h Deep House", img:"images/deep_house.jpg",type:"upbeat"},
     {src:"musics/lofi_hip_hop.mp3", name:"1h Lofi Hip Hop", img:"images/lofi_hip_hop.jpg", type:"lofi"},
     {src:"musics/1am_lofi.mp3", name:"1h Lofi Night Study", img:"images/1am_lofi.jpg", type:"lofi"},
-    {src:"musics/homer_drive.mp3", name:"1h Chill Driving Music", img:"images/homer_drive.jpg",type:"other"},
-    {src:"musics/heavenly_beats.mp3", name:"80min Heavenly Type Beats", img:"images/heavenly_beats.png",type:"beats"},
-    {src:"musics/underground_house.mp3", name:"40min Underground House", img:"images/underground_house.png",type:"house"},
-    {src:"musics/us_type_beats.mp3", name:"1h US Type Beats", img:"images/us_type_beats.jpg",type:"beats"},
+    {src:"musics/homer_drive.mp3", name:"1h Chill Driving Music", img:"images/homer_drive.jpg",type:"lofi"},
+    {src:"musics/heavenly_beats.mp3", name:"80min Heavenly Type Beats", img:"images/heavenly_beats.png",type:"urban"},
+    {src:"musics/underground_house.mp3", name:"40min Underground House", img:"images/underground_house.png",type:"upbeat"},
+    {src:"musics/us_type_beats.mp3", name:"1h US Type Beats", img:"images/us_type_beats.jpg",type:"urban"},
     {src:"musics/ambiant_classic_jazz.mp3", name:"1h Ambiant Classic Jazz", img:"images/ambiant_classic_jazz.jpg",type:"classic"},
-    {src:"musics/winter_chill.mp3", name:"1h Winter Chill Beats", img:"images/winter_chill.jpg",type:"beats"},
-    {src:"musics/spongebob_relaxing.mp3", name:"1h Spongebob Relaxing Music", img:"images/spongebob_relaxing.jpg",type:"beats"},
+    {src:"musics/winter_chill.mp3", name:"1h Winter Chill Beats", img:"images/winter_chill.jpg",type:"urban"},
+    {src:"musics/spongebob_relaxing.mp3", name:"1h Spongebob Relaxing Music", img:"images/spongebob_relaxing.jpg",type:"lofi"},
     {src:"musics/morning_lofi.mp3", name:"1h Morning Coffee Lofi", img:"images/morning_lofi.jpg",type:"lofi"},
-    {src:"musics/scenic_drive.mp3", name:"1h Scenic Drive Beats", img:"images/scenic_drive.jpg",type:"beats"},
-    {src:"musics/atmospheric_jungle.mp3", name:"1h Atmospheric Jungle", img:"images/atmospheric_jungle.jpg",type:"spacy"},
-    {src:"musics/space_jazz.mp3", name:"1h Space Jazz Beats", img:"images/space_jazz.jpg",type:"beats"},
-
+    {src:"musics/scenic_drive.mp3", name:"1h Scenic Drive Beats", img:"images/scenic_drive.jpg",type:"urban"},
+    {src:"musics/atmospheric_jungle.mp3", name:"1h Atmospheric Jungle", img:"images/atmospheric_jungle.jpg",type:"upbeat"},
+    {src:"musics/space_jazz.mp3", name:"1h Space Jazz Beats", img:"images/space_jazz.jpg",type:"urban"},
+    {src:"musics/studio_ghibli.mp3", name:"1h Studio Ghibli Theme Music", img:"images/studio_ghibli.png",type:"classic"},
+    {src:"musics/post_rock.mp3", name:"75min Post Rock Instrumental", img:"images/post_rock.jpg",type:"classic"},
+    {src:"musics/liquid_drum_and_bass.mp3", name:"1h Liquid Drum & Bass Music", img:"images/liquid_drum_and_bass.jpg",type:"upbeat"},
+    {src:"musics/deep_space_drone.mp3", name:"1h Deep Space Drone Music", img:"images/deep_space_drone.jpg",type:"ambient"},
+    {src:"musics/vaporwave_mallsoft.mp3", name:"1h Vaporwave Mallsoft Music", img:"images/vaporwave_mallsoft.jpg",type:"ambient"},
+    {src:"musics/deep_focus_binaural_beats.mp3", name:"1h Deep Focus Binaural Beats", img:"images/deep_focus_binaural_beats.png",type:"ambient"},
 ];
 
 // ---------- DOM REFERENCES ----------
@@ -284,14 +288,12 @@ function loadPage(page) {
                 <div class="filter-controls"> <div class="filter-container">
                         <label for="musicType">Filter by type: </label>
                         <select id="musicType">
-                            <option value="all">All</option>
-                            <option value="lofi">Lofi</option>
-                            <option value="beats">Beats</option>
-                            <option value="spacy">Spacy</option>
-                            <option value="classic">Classic</option>
-                            <option value="house">House</option>
-                            <option value="sounds">Sounds</option>
-                            <option value="other">Other</option>
+                            <option value="all">🎵 All</option>
+                            <option value="lofi">☕ Lo-Fi & Chill</option>
+                            <option value="classic">🎻 Classic & Acoustic</option>
+                            <option value="upbeat">⚡ Upbeat & Energy</option>
+                            <option value="ambient">☁️ Ambient & Nature</option>
+                            <option value="urban">🎧 Urban & Beats</option>
                         </select>
                     </div>
 
