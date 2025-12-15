@@ -358,7 +358,7 @@ body.dark-mode .search-container input#searchBar:focus {
 /* --- MEDIA QUERIES --- */
 
 /* Très grands écrans */
-@media (min-width:1920px){
+@media (min-width:1921px){
         .site-header, main, .player-bar {
         width: 40%;
     }
@@ -390,7 +390,7 @@ body.dark-mode .search-container input#searchBar:focus {
 }
 
 /* Mobiles */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     /* --- HEADER & NAVIGATION --- */
     .site-header {
         flex-direction: column;
@@ -508,5 +508,14 @@ body.dark-mode .search-container input#searchBar:focus {
     .search-container {
         width: 100%;
         max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery {
+        gap: 15px; /* Réduire encore les espaces */
+    }
+    #currentTrack {
+        max-width: 70px; /* Titre encore plus court */
     }
 }

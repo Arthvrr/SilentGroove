@@ -420,7 +420,7 @@ const navLinksContainer = document.querySelector('.nav-links');
 
 if (logoElement && navLinksContainer) {
     logoElement.addEventListener('click', () => {
-        if (window.innerWidth <= 600) {
+        if (window.innerWidth <= 768) {
             navLinksContainer.classList.toggle('show-nav');
         }
     });
@@ -428,7 +428,7 @@ if (logoElement && navLinksContainer) {
 const navItems = document.querySelectorAll('.nav-links a');
 navItems.forEach(item => {
     item.addEventListener('click', () => {
-        if (window.innerWidth <= 600) {
+        if (window.innerWidth <= 768) {
             navLinksContainer.classList.remove('show-nav');
         }
     });
