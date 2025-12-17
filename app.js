@@ -117,6 +117,8 @@ function playTrack(src) {
     const track = filteredTracks[currentFilteredIndex];
     if (!track) return;
 
+    document.title = `SilentGroove - ${track.name}`; // Met à jour l'onglet
+
     player.src = track.src;
     player.play().catch(()=>{}); // play may fail if not user gesture
     currentTrack.textContent = track.name || 'Unknown';
