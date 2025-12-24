@@ -38,6 +38,9 @@ const tracksData = [
     {src:"musics/deep_space_drone.mp3", name:"1h Deep Space Drone Music", img:"images/deep_space_drone.jpg",type:"ambient"},
     {src:"musics/vaporwave_mallsoft.mp3", name:"1h Vaporwave Mallsoft Music", img:"images/vaporwave_mallsoft.jpg",type:"ambient"},
     {src:"musics/deep_focus_binaural_beats.mp3", name:"1h Deep Focus Binaural Beats", img:"images/deep_focus_binaural_beats.png",type:"ambient"},
+    {src:"musics/japan_lofi.mp3", name:"1h Japanese Lofi Work", img:"images/japan_lofi.jpg",type:"lofi"},
+    {src:"musics/coding_vibes.mp3", name:"1h Coding Vibes Music", img:"images/coding_vibes.png",type:"lofi"},
+    {src:"musics/trip_to_dreamworld.mp3", name:"Trip to Dreamworld - ADTurnUp", img:"images/trip_to_dreamworld.jpg",type:"lofi"},
 ];
 
 // ---------- DOM REFERENCES ----------
