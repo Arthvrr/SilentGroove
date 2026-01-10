@@ -41,6 +41,10 @@ const tracksData = [
     {src:"musics/japan_lofi.mp3", name:"1h Japanese Lofi Work", img:"images/japan_lofi.jpg",type:"lofi"},
     {src:"musics/coding_vibes.mp3", name:"1h Coding Vibes Music", img:"images/coding_vibes.png",type:"lofi"},
     {src:"musics/trip_to_dreamworld.mp3", name:"Trip to Dreamworld - ADTurnUp", img:"images/trip_to_dreamworld.jpg",type:"lofi"},
+    {src:"musics/hypnotic_techno.mp3", name:"1h Deep Hypnotic Techno", img:"images/hypnotic_techno.png",type:"upbeat"},
+    {src:"musics/90s_hip_hop.mp3", name:"1h 90's Hip Hop Music", img:"images/90s_hip_hop.jpg",type:"urban"},
+    {src:"musics/nostalgic_drum_and_bass.mp3", name:"1h Nostalgic Drum & Bass", img:"images/nostalgic_drum_and_bass.jpg",type:"upbeat"},
+    
 ];
 
 // ---------- DOM REFERENCES ----------
